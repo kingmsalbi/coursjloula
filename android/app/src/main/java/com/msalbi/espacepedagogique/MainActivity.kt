@@ -154,11 +154,14 @@ class MainActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.VISIBLE
             }
 
+            private var fallbackAttempted = false
+
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 binding.progressBar.visibility = View.GONE
                 binding.swipeRefreshLayout.isRefreshing = false
                 showOfflineView(false)
+                fallbackAttempted = false
 
                 injectBridgeScript()
                 checkAndAutoPromptBiometric()
@@ -172,6 +175,13 @@ class MainActivity : AppCompatActivity() {
             ) {
                 super.onReceivedError(view, request, error)
                 if (request?.isForMainFrame == true) {
+                    val fallbackUrl = getString(R.string.fallback_url)
+                    val currentUrl = request.url?.toString() ?: ""
+                    if (!fallbackAttempted && !currentUrl.contains("onrender.com")) {
+                        fallbackAttempted = true
+                        view?.loadUrl(fallbackUrl)
+                        return
+                    }
                     showOfflineView(true)
                 }
             }
@@ -184,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                 val host = request.url?.host ?: ""
 
                 // Keep platform URLs inside WebView
-                if (host.contains("cours-msalbi.vercel.app") || host.contains("vercel.app") || host == "localhost") {
+                if (host.contains("coursjloula.tn") || host.contains("coursjloula.onrender.com") || host.contains("onrender.com") || host.contains("cours-msalbi.vercel.app") || host.contains("vercel.app") || host == "localhost") {
                     return false
                 }
 
