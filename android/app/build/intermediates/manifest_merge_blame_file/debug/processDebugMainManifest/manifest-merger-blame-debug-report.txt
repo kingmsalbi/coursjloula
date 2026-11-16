@@ -1,0 +1,182 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.msalbi.espacepedagogique"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:5:5-79
+12-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:5:22-76
+13    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+13-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:6:5-72
+13-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:6:22-69
+14    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+14-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:7:5-74
+14-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:7:22-71
+15    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+15-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:8:5-77
+15-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:8:22-74
+16    <uses-permission android:name="android.permission.VIBRATE" />
+16-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:9:5-66
+16-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:9:22-63
+17    <uses-permission android:name="android.permission.CAMERA" />
+17-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:10:5-65
+17-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:10:22-62
+18    <uses-permission
+18-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:11:5-13:38
+19        android:name="android.permission.READ_EXTERNAL_STORAGE"
+19-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:12:9-64
+20        android:maxSdkVersion="32" />
+20-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:13:9-35
+21    <uses-permission
+21-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:14:5-16:38
+22        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+22-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:15:9-65
+23        android:maxSdkVersion="28" />
+23-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:16:9-35
+24
+25    <uses-feature
+25-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:18:5-20:36
+26        android:name="android.hardware.camera"
+26-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:19:9-47
+27        android:required="false" />
+27-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:20:9-33
+28    <uses-feature
+28-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:21:5-23:36
+29        android:name="android.hardware.fingerprint"
+29-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:22:9-52
+30        android:required="false" />
+30-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:23:9-33
+31
+32    <permission
+32-->[androidx.core:core:1.13.1] C:\Users\user\.gradle\caches\transforms-4\977f06a6b0b1cbe9a737a9134def6fd7\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+33        android:name="com.msalbi.espacepedagogique.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+33-->[androidx.core:core:1.13.1] C:\Users\user\.gradle\caches\transforms-4\977f06a6b0b1cbe9a737a9134def6fd7\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+34        android:protectionLevel="signature" />
+34-->[androidx.core:core:1.13.1] C:\Users\user\.gradle\caches\transforms-4\977f06a6b0b1cbe9a737a9134def6fd7\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+35
+36    <uses-permission android:name="com.msalbi.espacepedagogique.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+36-->[androidx.core:core:1.13.1] C:\Users\user\.gradle\caches\transforms-4\977f06a6b0b1cbe9a737a9134def6fd7\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+36-->[androidx.core:core:1.13.1] C:\Users\user\.gradle\caches\transforms-4\977f06a6b0b1cbe9a737a9134def6fd7\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+37
+38    <application
+38-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:25:5-47:19
+39        android:allowBackup="true"
+39-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:26:9-35
+40        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+40-->[androidx.core:core:1.13.1] C:\Users\user\.gradle\caches\transforms-4\977f06a6b0b1cbe9a737a9134def6fd7\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+41        android:debuggable="true"
+42        android:extractNativeLibs="false"
+43        android:hardwareAccelerated="true"
+43-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:32:9-43
+44        android:icon="@mipmap/ic_launcher"
+44-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:27:9-43
+45        android:label="@string/app_name"
+45-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:28:9-41
+46        android:requestLegacyExternalStorage="true"
+46-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:34:9-52
+47        android:roundIcon="@mipmap/ic_launcher_round"
+47-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:29:9-54
+48        android:supportsRtl="true"
+48-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:30:9-35
+49        android:theme="@style/Theme.EspacePedagogique"
+49-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:31:9-55
+50        android:usesCleartextTraffic="true" >
+50-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:33:9-44
+51        <activity
+51-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:36:9-45:20
+52            android:name="com.msalbi.espacepedagogique.MainActivity"
+52-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:37:13-41
+53            android:configChanges="orientation|screenSize|keyboardHidden"
+53-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:39:13-74
+54            android:exported="true"
+54-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:38:13-36
+55            android:windowSoftInputMode="adjustResize" >
+55-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:40:13-55
+56            <intent-filter>
+56-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:41:13-44:29
+57                <action android:name="android.intent.action.MAIN" />
+57-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:42:17-69
+57-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:42:25-66
+58
+59                <category android:name="android.intent.category.LAUNCHER" />
+59-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:43:17-77
+59-->C:\Users\user\Documents\partage cours\android\app\src\main\AndroidManifest.xml:43:27-74
+60            </intent-filter>
+61        </activity>
+62
+63        <provider
+63-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+64            android:name="androidx.startup.InitializationProvider"
+64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+65            android:authorities="com.msalbi.espacepedagogique.androidx-startup"
+65-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+66            android:exported="false" >
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+67            <meta-data
+67-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+68                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+68-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+69                android:value="androidx.startup" />
+69-->[androidx.emoji2:emoji2:1.3.0] C:\Users\user\.gradle\caches\transforms-4\6aa4b3f348c47482fcf0f11142d97377\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+70            <meta-data
+70-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\transforms-4\6cc71b45ce46159af90acbe53e266e19\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+71-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\transforms-4\6cc71b45ce46159af90acbe53e266e19\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:30:17-78
+72                android:value="androidx.startup" />
+72-->[androidx.lifecycle:lifecycle-process:2.6.2] C:\Users\user\.gradle\caches\transforms-4\6cc71b45ce46159af90acbe53e266e19\transformed\lifecycle-process-2.6.2\AndroidManifest.xml:31:17-49
+73            <meta-data
+73-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+75                android:value="androidx.startup" />
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+76        </provider>
+77
+78        <receiver
+78-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+79            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+79-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+80            android:directBootAware="false"
+80-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+81            android:enabled="true"
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+82            android:exported="true"
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+83            android:permission="android.permission.DUMP" >
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+84            <intent-filter>
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+85                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+86            </intent-filter>
+87            <intent-filter>
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+88                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+89            </intent-filter>
+90            <intent-filter>
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+91                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+92            </intent-filter>
+93            <intent-filter>
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+94                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\user\.gradle\caches\transforms-4\5ce187f7d6bcbb33a8ec1023b7a307d5\transformed\profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+95            </intent-filter>
+96        </receiver>
+97    </application>
+98
+99</manifest>

@@ -1,0 +1,7 @@
+.vercel
+.env*
+__pycache__/
+*.pyc
+scratch/
+temp_cloud.db
+*.apk

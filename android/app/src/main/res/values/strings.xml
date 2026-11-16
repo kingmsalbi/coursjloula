@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Espace Pédagogique Msalbi</string>
+    <string name="app_short_name">Espace Msalbi</string>
+    <string name="default_url">https://cours-msalbi.vercel.app</string>
+
+    <!-- Biometric Strings -->
+    <string name="biometric_title">Connexion Biométrique</string>
+    <string name="biometric_subtitle">Espace Pédagogique Prof. Msalbi</string>
+    <string name="biometric_description">Posez votre doigt sur le lecteur d\'empreinte ou regardez l\'écran pour vous connecter instantanément.</string>
+    <string name="biometric_negative">Utiliser le mot de passe</string>
+    <string name="biometric_success">Authentification réussie !</string>
+    <string name="biometric_not_enrolled">Aucune empreinte enregistrée sur cet appareil.</string>
+    <string name="biometric_not_supported">L\'authentification biométrique n\'est pas supportée par cet appareil.</string>
+    <string name="biometric_save_prompt">Voulez-vous activer la connexion par empreinte digitale pour ce compte ?</string>
+    <string name="biometric_enabled_toast">Connexion biométrique activée avec succès !</string>
+    <string name="biometric_disabled_toast">Connexion biométrique désactivée.</string>
+
+    <!-- Connection & Offline Strings -->
+    <string name="offline_title">Aucune connexion Internet</string>
+    <string name="offline_message">Veuillez vérifier votre connexion Wi-Fi ou vos données mobiles pour accéder à vos cours.</string>
+    <string name="btn_retry">Réessayer</string>
+    <string name="press_again_to_exit">Appuyez à nouveau pour quitter l\'application</string>
+
+    <!-- Download Strings -->
+    <string name="download_started">Téléchargement démarré : %1$s</string>
+    <string name="download_failed">Échec du téléchargement</string>
+</resources>
