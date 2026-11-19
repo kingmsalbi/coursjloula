@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Espace Pédagogique Msalbi</string>
     <string name="app_short_name">Espace Msalbi</string>
-    <string name="default_url">https://coursjloula.tn</string>
-    <string name="fallback_url">https://coursjloula.onrender.com</string>
+    <string name="default_url">https://www.coursjloula.tn</string>
+    <string name="fallback_url">https://coursjloula.pages.dev</string>
 
     <!-- Biometric Strings -->
     <string name="biometric_title">Connexion Biométrique</string>

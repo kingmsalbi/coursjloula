@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                 val host = request.url?.host ?: ""
 
                 // Keep platform URLs inside WebView
-                if (host.contains("coursjloula.tn") || host.contains("coursjloula.onrender.com") || host.contains("onrender.com") || host.contains("cours-msalbi.vercel.app") || host.contains("vercel.app") || host == "localhost") {
+                if (host.contains("coursjloula.tn") || host.contains("coursjloula.pages.dev") || host.contains("pages.dev") || host.contains("coursjloula.onrender.com") || host.contains("cours-msalbi.vercel.app") || host == "localhost") {
                     return false
                 }
 
