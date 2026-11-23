@@ -220,9 +220,32 @@ def download_apk():
         )
     return jsonify({'error': 'APK non disponible'}), 404
 
+@app.route('/api/public/sync-db', methods=['GET', 'POST'])
+def force_sync_db():
+    try:
+        from supabase_storage import download_file_from_supabase
+        download_file_from_supabase("database/partage_cours.db", DB_PATH)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    conn = get_db()
+    classes = [dict(r) for r in conn.execute("SELECT id, name FROM classes ORDER BY id ASC").fetchall()]
+    user_count = conn.execute("SELECT COUNT(*) FROM users").fetchone()[0]
+    conn.close()
+    return jsonify({'success': True, 'classes_count': len(classes), 'users_count': user_count, 'classes': classes})
+
 @app.route('/api/public/classes', methods=['GET'])
 def get_public_classes():
     conn = get_db()
+    try:
+        c_count = conn.execute("SELECT COUNT(*) FROM classes").fetchone()[0]
+        if c_count < 10:
+            conn.close()
+            from supabase_storage import download_file_from_supabase
+            download_file_from_supabase("database/partage_cours.db", DB_PATH)
+            conn = get_db()
+    except Exception as e:
+        print("[Classes DB Sync Warning]", e)
+
     rows = conn.execute("SELECT id, name, level FROM classes ORDER BY id ASC").fetchall()
     classes_list = [dict(c) for c in rows]
     existing_names = {c['name'].strip().lower() for c in classes_list}
@@ -251,13 +274,24 @@ def get_public_classes():
 def get_public_students():
     classe = (request.args.get('classe') or '').strip()
     conn = get_db()
+    students = []
     if classe and classe.lower() not in ['teacher', 'enseignant', 'admin']:
         students = conn.execute(
             "SELECT id, username, full_name, classe FROM users WHERE role = 'student' AND LOWER(classe) = LOWER(?) ORDER BY full_name ASC",
             (classe,)
         ).fetchall()
-    else:
-        students = []
+        if not students:
+            try:
+                conn.close()
+                from supabase_storage import download_file_from_supabase
+                download_file_from_supabase("database/partage_cours.db", DB_PATH)
+                conn = get_db()
+                students = conn.execute(
+                    "SELECT id, username, full_name, classe FROM users WHERE role = 'student' AND LOWER(classe) = LOWER(?) ORDER BY full_name ASC",
+                    (classe,)
+                ).fetchall()
+            except Exception:
+                pass
     conn.close()
     return jsonify({'students': [dict(s) for s in students]})
 

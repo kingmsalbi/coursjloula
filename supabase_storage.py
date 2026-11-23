@@ -26,6 +26,11 @@ def get_supabase_config():
         except Exception:
             pass
 
+    if not url:
+        url = "https://hrxceonzdtpcluwnitpk.supabase.co"
+    if not key:
+        key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyeGNlb256ZHRwY2x1d25pdHBrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5NTAzODExNiwiZXhwIjoyMTEwNjE0MTE2fQ.t40dN1CRuqhujDHoXvkfBj0uT0Lmn07enJG4D8h-ZIc"
+
     return url, key, bucket
 
 def upload_file_to_supabase(file_bytes, remote_path, content_type='application/octet-stream'):

@@ -67,18 +67,33 @@ class App {
     async loadPublicClasses() {
         try {
             const res = await fetch('/api/public/classes');
-            if (!res.ok) return;
-            const data = await res.json();
-            const classes = data.classes || [];
-            this.cachedPublicClasses = classes;
-            this.populateNewCourseClasses();
+            let apiClasses = [];
+            if (res.ok) {
+                const data = await res.json();
+                apiClasses = data.classes || [];
+            }
 
             const select = document.getElementById('loginClasse');
-            if (!select || !classes.length) return;
+            if (!select) return;
+
+            // Liste garantie de toutes les classes officielles
+            const defaultClasses = [
+                '1s1', '1s2', '1s3', '2 IT', '2 ECO', '2 Lettre', '2 science', '3eco', '4 science', '4eco'
+            ];
+
+            const existingNames = new Set(apiClasses.map(c => c.name));
+            defaultClasses.forEach(defName => {
+                if (!existingNames.has(defName)) {
+                    apiClasses.push({ id: 999, name: defName, level: 'Secondaire' });
+                }
+            });
+
+            this.cachedPublicClasses = apiClasses;
+            this.populateNewCourseClasses();
 
             const curVal = select.value;
             let html = '';
-            classes.forEach(c => {
+            apiClasses.forEach(c => {
                 html += `<option value="${c.name}">🎓 Classe : ${c.name}</option>`;
             });
             html += `<option value="teacher">👨‍🏫 Espace Enseignants</option>`;
@@ -86,8 +101,8 @@ class App {
 
             if (curVal && Array.from(select.options).some(o => o.value === curVal)) {
                 select.value = curVal;
-            } else if (classes.length > 0) {
-                select.value = classes[0].name;
+            } else if (apiClasses.length > 0) {
+                select.value = apiClasses[0].name;
             }
 
             if (select.value !== 'teacher') {
