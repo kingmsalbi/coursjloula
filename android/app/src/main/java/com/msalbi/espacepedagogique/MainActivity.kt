@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
@@ -95,12 +96,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Gestion de l'encoche et de la barre de statut pour éviter tout chevauchement
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+        // Gestion de l'encoche et de la barre de statut pour éviter tout chevauchement avec les notifications
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
+            val statusBarInsets = insets.getInsets(
+                WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            binding.swipeRefreshLayout.setPadding(0, statusBarInsets.top, 0, 0)
+            (binding.progressBar.layoutParams as? ViewGroup.MarginLayoutParams)?.let { lp ->
+                lp.topMargin = statusBarInsets.top
+                binding.progressBar.layoutParams = lp
+            }
             insets
         }
+        ViewCompat.requestApplyInsets(binding.root)
 
         NotificationHelper.createNotificationChannel(this)
         requestNotificationPermissionIfNeeded()
