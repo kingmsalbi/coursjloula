@@ -20,6 +20,16 @@ _last_blob_sync_time = 0
 import threading
 
 def _run_background_sync():
+    # Sauvegarde sur Supabase Storage (prioritaire, remplace Vercel Blob)
+    try:
+        from supabase_storage import upload_file_to_supabase
+        result = upload_file_to_supabase(DB_PATH, 'database/partage_cours.db')
+        if result:
+            print("[CloudDB] DB sauvegardée sur Supabase Storage ✓")
+            return
+    except Exception as e:
+        print("[CloudDB] Erreur Supabase sync:", e)
+    # Fallback : Vercel Blob
     try:
         from blob_sync import sync_to_blob
         sync_to_blob(DB_PATH)

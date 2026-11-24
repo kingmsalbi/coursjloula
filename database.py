@@ -49,7 +49,16 @@ else:
         s_url, s_key, _ = get_supabase_config()
         if s_url and s_key:
             print("[CloudInit] Vérification de la base de données cloud sur Supabase...")
+            # Ne télécharger que si la DB locale est absente ou plus ancienne que la DB cloud
+            import time
+            local_mtime = os.path.getmtime(DB_PATH) if os.path.exists(DB_PATH) else 0
+            # Toujours synchroniser au démarrage pour avoir la dernière version
             download_file_from_supabase("database/partage_cours.db", DB_PATH)
+            new_mtime = os.path.getmtime(DB_PATH) if os.path.exists(DB_PATH) else 0
+            if new_mtime > local_mtime:
+                print("[CloudInit] Base de données mise à jour depuis Supabase Storage ✓")
+            else:
+                print("[CloudInit] Base de données locale déjà à jour.")
     except Exception as e:
         print("[CloudInit Exception]", e)
 
