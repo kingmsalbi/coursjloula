@@ -411,16 +411,7 @@ def seed_database_if_empty():
     conn = get_db()
     cursor = conn.cursor()
 
-    # Check if excel files exist in workspace and import them
-    for x_file, c_name in [('eleve 2 it.xlsx', '2 IT'), ('eleve 2 eco.xlsx', '2 ECO'), ('eleve 2 lettre.xlsx', '2 Lettre')]:
-        excel_path = os.path.join(BASE_DIR, x_file)
-        if os.path.exists(excel_path):
-            try:
-                from import_excel_students import import_students_file
-                import_students_file(excel_path, c_name)
-            except Exception as e:
-                print(f"[Database] Erreur import {x_file}:", e)
-
+    # Database is managed with 10 official classes and synchronized from Supabase
     conn.close()
 
 if __name__ == '__main__':
