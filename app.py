@@ -1,4 +1,5 @@
 import os
+import urllib.parse
 import sqlite3
 import uuid
 from datetime import datetime, timedelta
@@ -2937,6 +2938,17 @@ def view_message_file(message_id):
             print("[view_message_file] blob download err:", e)
 
     if not os.path.exists(full_path):
+        try:
+            b_url = msg['blob_url'] if 'blob_url' in msg.keys() else None
+            if b_url:
+                return redirect(b_url)
+            from supabase_storage import get_supabase_config
+            sb_url, _, sb_bucket = get_supabase_config()
+            if sb_url and sb_bucket:
+                safe_name = urllib.parse.quote(os.path.basename(msg['file_path']))
+                return redirect(f"{sb_url.rstrip('/')}/storage/v1/object/public/{sb_bucket}/messages/{safe_name}")
+        except Exception:
+            pass
         return jsonify({'error': "Le fichier physique n'est plus disponible sur le serveur"}), 404
 
     ext = os.path.splitext(msg['file_name'])[1].lower() if msg['file_name'] else ''
@@ -3035,6 +3047,17 @@ def download_message_file(message_id):
             print("[download_message_file] blob download err:", e)
 
     if not os.path.exists(full_path):
+        try:
+            b_url = msg['blob_url'] if 'blob_url' in msg.keys() else None
+            if b_url:
+                return redirect(b_url)
+            from supabase_storage import get_supabase_config
+            sb_url, _, sb_bucket = get_supabase_config()
+            if sb_url and sb_bucket:
+                safe_name = urllib.parse.quote(os.path.basename(msg['file_path']))
+                return redirect(f"{sb_url.rstrip('/')}/storage/v1/object/public/{sb_bucket}/messages/{safe_name}")
+        except Exception:
+            pass
         return jsonify({'error': "Le fichier physique n'est plus disponible sur le serveur"}), 404
 
     return send_file(
