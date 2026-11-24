@@ -978,6 +978,14 @@ def view_file(file_id):
             print("[view_file] blob download err:", e)
 
     if not os.path.exists(full_path):
+        try:
+            from supabase_storage import get_supabase_config
+            sb_url, _, sb_bucket = get_supabase_config()
+            if sb_url and sb_bucket:
+                safe_name = urllib.parse.quote(os.path.basename(file_record['file_path']))
+                return redirect(f"{sb_url.rstrip('/')}/storage/v1/object/public/{sb_bucket}/courses/{safe_name}")
+        except Exception:
+            pass
         return jsonify({'error': "Le fichier physique n'existe plus sur le serveur"}), 404
 
     ext = os.path.splitext(file_record['file_name'])[1].lower()
@@ -1068,6 +1076,14 @@ def download_file(file_id):
             print("[download_file] blob download err:", e)
 
     if not os.path.exists(full_path):
+        try:
+            from supabase_storage import get_supabase_config
+            sb_url, _, sb_bucket = get_supabase_config()
+            if sb_url and sb_bucket:
+                safe_name = urllib.parse.quote(os.path.basename(file_record['file_path']))
+                return redirect(f"{sb_url.rstrip('/')}/storage/v1/object/public/{sb_bucket}/courses/{safe_name}")
+        except Exception:
+            pass
         return jsonify({'error': 'Fichier physique introuvable'}), 404
 
     return send_file(

@@ -38,6 +38,13 @@ def upload_file_to_supabase(file_bytes, remote_path, content_type='application/o
     Téléverse un fichier (cours, message, base de données) sur Supabase Storage.
     Renvoie l'URL publique directe du fichier, ou None en cas d'erreur.
     """
+    if isinstance(file_bytes, str):
+        if os.path.isfile(file_bytes):
+            with open(file_bytes, 'rb') as f:
+                file_bytes = f.read()
+        else:
+            file_bytes = file_bytes.encode('utf-8')
+
     url, key, bucket = get_supabase_config()
     if not url or not key:
         return None

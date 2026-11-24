@@ -22,6 +22,10 @@ class App {
         this.init();
     }
 
+    get token() {
+        return localStorage.getItem('auth_token') || '';
+    }
+
     getAuthHeaders() {
         const headers = { 'Content-Type': 'application/json' };
         const token = localStorage.getItem('auth_token');
@@ -973,7 +977,8 @@ class App {
             else if (c.subject.includes('Info')) badgeClass = 'badge-info';
             else if (c.subject.includes('Phys')) badgeClass = 'badge-phys';
 
-            const authQuery = this.token ? `?auth_token=${encodeURIComponent(this.token)}` : '';
+            const curToken = this.token || localStorage.getItem('auth_token') || '';
+            const authQuery = curToken ? `?auth_token=${encodeURIComponent(curToken)}` : '';
             const filesList = c.files && c.files.length > 0 ? c.files.map(f => {
                 const sizeKb = Math.round((f.file_size || 0) / 1024);
                 const ext = (f.file_name.split('.').pop() || 'DOC').toUpperCase();
@@ -1056,7 +1061,8 @@ class App {
         if (!modal) return;
 
         titleEl.textContent = fileName;
-        const authParam = this.token ? `?auth_token=${encodeURIComponent(this.token)}` : '';
+        const curToken = this.token || localStorage.getItem('auth_token') || '';
+        const authParam = curToken ? `?auth_token=${encodeURIComponent(curToken)}` : '';
         frameEl.src = `/api/files/${fileId}/view${authParam}`;
         downloadLink.href = `/api/files/${fileId}/download${authParam}`;
 

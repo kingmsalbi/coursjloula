@@ -258,6 +258,20 @@ def download_course_file_from_blob(filename, dest_path, direct_blob_url=None):
     urls_to_try = []
     if direct_blob_url:
         urls_to_try.append(direct_blob_url)
+
+    # Supabase Storage public URLs
+    try:
+        from supabase_storage import get_supabase_config
+        sb_url, _, sb_bucket = get_supabase_config()
+        if sb_url and sb_bucket:
+            sb_base = f"{sb_url.rstrip('/')}/storage/v1/object/public/{sb_bucket}"
+            urls_to_try.append(f"{sb_base}/courses/{safe_name}")
+            urls_to_try.append(f"{sb_base}/courses/{clean_name}")
+            urls_to_try.append(f"{sb_base}/{safe_name}")
+            urls_to_try.append(f"{sb_base}/{clean_name}")
+    except Exception as e:
+        print("[BlobSync] Erreur configuration Supabase:", e)
+
     urls_to_try.append(f"{BLOB_BASE_URL}/courses/{safe_name}")
     urls_to_try.append(f"{BLOB_BASE_URL}/courses/{clean_name}")
 
