@@ -82,7 +82,7 @@ class App {
 
             // Liste garantie de toutes les classes officielles
             const defaultClasses = [
-                '1s1', '1s2', '1s3', '2 IT', '2 ECO', '2 Lettre', '2 science', '3eco', '4 science', '4eco'
+                '1s1', '1s2', '1s3', '2 IT', '2 ECO', '2 Lettre', '2 science', '3eco', '3 science', '4 science', '4eco'
             ];
 
             const existingNames = new Set(apiClasses.map(c => c.name));
