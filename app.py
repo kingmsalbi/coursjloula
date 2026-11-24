@@ -295,6 +295,14 @@ def get_public_students():
     conn.close()
     return jsonify({'students': [dict(s) for s in students]})
 
+@app.route('/api/public/teachers', methods=['GET'])
+def get_public_teachers():
+    conn = get_db()
+    rows = conn.execute("SELECT id, username, full_name, email FROM users WHERE role = 'teacher' ORDER BY id ASC").fetchall()
+    teachers = [dict(r) for r in rows]
+    conn.close()
+    return jsonify({'teachers': teachers})
+
 # --- Authentication Routes ---
 @app.route('/api/auth/me', methods=['GET'])
 def get_current_user():
@@ -1391,6 +1399,14 @@ def get_all_students_report():
     students = cursor.execute(query, params).fetchall()
     conn.close()
     return jsonify({'students': [dict(s) for s in students]})
+
+@app.route('/api/public/teachers', methods=['GET'])
+def get_public_teachers():
+    conn = get_db()
+    rows = conn.execute("SELECT id, username, full_name, email FROM users WHERE role = 'teacher' ORDER BY id ASC").fetchall()
+    teachers = [dict(r) for r in rows]
+    conn.close()
+    return jsonify({'teachers': teachers})
 
 # --- Teacher Classes Management Routes ---
 @app.route('/api/teacher/my-classes', methods=['GET'])

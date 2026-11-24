@@ -147,29 +147,76 @@ class App {
         const manualContainer = document.getElementById('loginUsernameInputContainer');
         const usernameInput = document.getElementById('loginUsername');
         const studentSelect = document.getElementById('loginStudentSelect');
+        const selectLabel = document.getElementById('loginSelectLabel');
+        const manualLabel = document.getElementById('loginUsernameLabel');
+
+        if (manualContainer) manualContainer.classList.add('hidden');
+        if (studentContainer) studentContainer.classList.remove('hidden');
 
         if (classe === 'teacher') {
-            if (studentContainer) studentContainer.classList.add('hidden');
-            if (manualContainer) {
-                manualContainer.classList.remove('hidden');
-                document.getElementById('toggleListLoginBtn')?.classList.add('hidden');
-                const label = document.getElementById('loginUsernameLabel');
-                if (label) label.textContent = 'Identifiant Enseignant (msalbi / jamila.rahmeni)';
-            }
-            if (usernameInput) {
-                usernameInput.placeholder = 'Ex: msalbi ou jamila.rahmeni';
-                if (!usernameInput.value) usernameInput.value = 'msalbi';
-            }
-            document.getElementById('loginPassword')?.focus();
+            if (selectLabel) selectLabel.textContent = 'Sélectionnez votre Nom (Enseignant) *';
+            if (manualLabel) manualLabel.textContent = 'Identifiant Enseignant *';
+            if (usernameInput) usernameInput.placeholder = 'Ex: msalbi ou jamila.rahmeni';
+            await this.loadTeachers();
         } else {
-            if (manualContainer) manualContainer.classList.add('hidden');
-            if (studentContainer) studentContainer.classList.remove('hidden');
-            document.getElementById('toggleListLoginBtn')?.classList.remove('hidden');
-            const label = document.getElementById('loginUsernameLabel');
-            if (label) label.textContent = 'Identifiant de connexion *';
-            if (usernameInput) usernameInput.value = '';
+            if (selectLabel) selectLabel.textContent = 'Sélectionnez votre Nom (Élève) *';
+            if (manualLabel) manualLabel.textContent = 'Identifiant de connexion *';
+            if (usernameInput) {
+                usernameInput.placeholder = 'Ex: msalbi ou prenom.nom';
+                usernameInput.value = '';
+            }
             await this.loadStudentsForClasse(classe);
         }
+    }
+
+    async loadTeachers(selectUsername = null) {
+        const studentSelect = document.getElementById('loginStudentSelect');
+        const usernameInput = document.getElementById('loginUsername');
+        if (!studentSelect) return;
+
+        studentSelect.innerHTML = '<option value="">⏳ Chargement des enseignants...</option>';
+
+        let teachers = [
+            { id: 1, username: "msalbi", full_name: "👨‍🏫 Professeur Msalbi" },
+            { id: 88, username: "jamila.rahmeni", full_name: "👩‍🏫 Jamila Rahmeni" }
+        ];
+
+        try {
+            const res = await fetch('/api/public/teachers');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.teachers && data.teachers.length > 0) {
+                    teachers = data.teachers.map(t => {
+                        let name = t.full_name || t.username;
+                        let prefix = t.username === 'msalbi' ? '👨‍🏫 ' : '👩‍🏫 ';
+                        return {
+                            id: t.id,
+                            username: t.username,
+                            full_name: `${prefix}${name}`
+                        };
+                    });
+                }
+            }
+        } catch (e) {
+            console.warn('Fallback static teachers:', e);
+        }
+
+        let html = '<option value="">-- Choisissez votre nom d\'enseignant --</option>';
+        teachers.forEach(t => {
+            html += `<option value="${t.username}">${t.full_name} (${t.username})</option>`;
+        });
+        studentSelect.innerHTML = html;
+
+        const targetUser = selectUsername || (usernameInput ? usernameInput.value : '') || 'msalbi';
+        if (targetUser && Array.from(studentSelect.options).some(o => o.value === targetUser)) {
+            studentSelect.value = targetUser;
+            if (usernameInput) usernameInput.value = targetUser;
+        } else if (teachers.length > 0) {
+            studentSelect.value = teachers[0].username;
+            if (usernameInput) usernameInput.value = teachers[0].username;
+        }
+
+        document.getElementById('loginPassword')?.focus();
     }
 
     async loadStudentsForClasse(classe, selectUsername = null) {
@@ -650,7 +697,9 @@ class App {
         if (!username || !password) {
             if (errorEl) {
                 if (isStudentSelectVisible && (!studentSelect || !studentSelect.value)) {
-                    errorEl.textContent = 'Veuillez sélectionner votre nom dans la liste des élèves.';
+                    errorEl.textContent = classe === 'teacher'
+                        ? 'Veuillez sélectionner votre nom dans la liste des enseignants.'
+                        : 'Veuillez sélectionner votre nom dans la liste des élèves.';
                 } else {
                     errorEl.textContent = 'Veuillez renseigner votre identifiant et votre mot de passe.';
                 }
