@@ -365,6 +365,18 @@ class App {
     }
 
     switchView(viewName) {
+        // STRICT ROLE-BASED ACCESS CONTROL:
+        // A student ONLY has access to student-courses (courses & messaging)
+        if (this.currentUser?.role === 'student') {
+            if (viewName !== 'student-courses' && viewName !== 'auth') {
+                viewName = 'student-courses';
+            }
+        } else if (this.currentUser?.role === 'teacher') {
+            if (viewName === 'student-courses') {
+                viewName = 'teacher-dashboard';
+            }
+        }
+
         this.currentView = viewName;
         
         // Hide all main view containers
@@ -375,11 +387,20 @@ class App {
         });
 
         // Toggle user header elements
-        const navHeader = document.getElementById('mainNav');
         const userMenu = document.getElementById('userNavMenu');
+        const navTeacher = document.getElementById('navTeacherLinks');
+        const mobTeacher = document.getElementById('mobileTeacherLinks');
+        const mobStudent = document.getElementById('mobileStudentLinks');
+        const navStudentPill = document.getElementById('navStudentPill');
 
         if (viewName === 'auth') {
             if (userMenu) userMenu.classList.add('hidden');
+            if (navTeacher) {
+                navTeacher.style.setProperty('display', 'none', 'important');
+                navTeacher.classList.add('hidden');
+            }
+            if (mobTeacher) mobTeacher.classList.add('hidden');
+            if (mobStudent) mobStudent.classList.add('hidden');
             this.closeMobileMenu();
             this.closeUserMenu();
             const authEl = document.getElementById('authView');
@@ -390,43 +411,47 @@ class App {
             this.closeMobileMenu();
             this.closeUserMenu();
 
-            // Toggle mobile drawer links
-            const mobTeacher = document.getElementById('mobileTeacherLinks');
-            const mobStudent = document.getElementById('mobileStudentLinks');
-            if (this.currentUser?.role === 'teacher') {
+            const isTeacher = this.currentUser?.role === 'teacher';
+
+            if (isTeacher) {
+                // TEACHER: Show teacher navigation bar
+                if (navTeacher) {
+                    navTeacher.style.setProperty('display', 'flex', 'important');
+                    navTeacher.classList.remove('hidden');
+                }
                 if (mobTeacher) mobTeacher.classList.remove('hidden');
                 if (mobStudent) mobStudent.classList.add('hidden');
+                if (navStudentPill) navStudentPill.style.setProperty('display', 'none', 'important');
+
+                if (viewName === 'teacher-dashboard') {
+                    const el = document.getElementById('teacherDashboardView');
+                    if (el) el.classList.remove('hidden');
+                    this.setTeacherNavActive('dashboard');
+                    window.teacherDashboard?.loadDashboard();
+                } else if (viewName === 'teacher-classes') {
+                    const el = document.getElementById('teacherClassesView');
+                    if (el) el.classList.remove('hidden');
+                    this.setTeacherNavActive('classes');
+                    window.teacherDashboard?.closeClassDetail();
+                    window.teacherDashboard?.loadClasses();
+                } else if (viewName === 'teacher-courses') {
+                    const el = document.getElementById('teacherCoursesView');
+                    if (el) el.classList.remove('hidden');
+                    this.setTeacherNavActive('courses');
+                }
             } else {
+                // STUDENT: L'élève n'a QUE les cours et les messages!
+                // Cacher TOUS les liens, boutons et suivis enseignants
+                if (navTeacher) {
+                    navTeacher.style.setProperty('display', 'none', 'important');
+                    navTeacher.classList.add('hidden');
+                }
                 if (mobTeacher) mobTeacher.classList.add('hidden');
                 if (mobStudent) mobStudent.classList.remove('hidden');
-            }
+                if (navStudentPill) navStudentPill.style.setProperty('display', 'none', 'important');
 
-            if (viewName === 'student-courses') {
                 const el = document.getElementById('studentCoursesView');
                 if (el) el.classList.remove('hidden');
-                document.getElementById('navStudentPill')?.classList.remove('hidden');
-                document.getElementById('navTeacherLinks')?.classList.add('hidden');
-            } else if (viewName === 'teacher-dashboard') {
-                const el = document.getElementById('teacherDashboardView');
-                if (el) el.classList.remove('hidden');
-                document.getElementById('navStudentPill')?.classList.add('hidden');
-                document.getElementById('navTeacherLinks')?.classList.remove('hidden');
-                this.setTeacherNavActive('dashboard');
-                window.teacherDashboard?.loadDashboard();
-            } else if (viewName === 'teacher-classes') {
-                const el = document.getElementById('teacherClassesView');
-                if (el) el.classList.remove('hidden');
-                document.getElementById('navStudentPill')?.classList.add('hidden');
-                document.getElementById('navTeacherLinks')?.classList.remove('hidden');
-                this.setTeacherNavActive('classes');
-                window.teacherDashboard?.closeClassDetail();
-                window.teacherDashboard?.loadClasses();
-            } else if (viewName === 'teacher-courses') {
-                const el = document.getElementById('teacherCoursesView');
-                if (el) el.classList.remove('hidden');
-                document.getElementById('navStudentPill')?.classList.add('hidden');
-                document.getElementById('navTeacherLinks')?.classList.remove('hidden');
-                this.setTeacherNavActive('courses');
             }
         }
     }

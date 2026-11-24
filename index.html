@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Espace Pédagogique Msalbi — Partage de Cours & Suivi</title>
+    <title>Espace Pédagogique Msalbi — Partage de Cours</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -29,15 +29,15 @@
                             <span class="font-extrabold text-slate-900 tracking-tight text-sm sm:text-lg brand-font truncate">Espace Msalbi</span>
                             <span class="text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 uppercase tracking-wider hidden sm:inline">Prof. Msalbi</span>
                         </div>
-                        <p class="text-[11px] text-slate-500 hidden md:block">Plateforme officielle de partage de cours & suivi des élèves</p>
+                        <p class="text-[11px] text-slate-500 hidden md:block">Plateforme officielle de partage de cours & messagerie</p>
                     </div>
                 </div>
 
                 <!-- Logged-in User Navigation Menu -->
                 <div id="userNavMenu" class="hidden flex items-center gap-2 sm:gap-3 shrink-0">
                     
-                    <!-- Desktop-Only Navigation Tabs (STRICTLY DESKTOP) -->
-                    <div id="navTeacherLinks" class="hidden md:flex desktop-nav-only items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold">
+                    <!-- Desktop-Only Navigation Tabs (STRICTLY TEACHER ONLY) -->
+                    <div id="navTeacherLinks" class="hidden items-center bg-slate-100 p-1 rounded-xl text-xs font-semibold" style="display: none !important;">
                         <button id="navBtnTeacherDash" onclick="app.switchView('teacher-dashboard')" class="px-3 py-1.5 rounded-lg bg-blue-700 text-white shadow-xs transition-all flex items-center gap-1.5">
                             <span>📊</span> Suivi Élèves
                         </button>
@@ -52,13 +52,9 @@
                         </button>
                     </div>
 
-                    <!-- Student Active Study Timer Pill (Desktop Only) -->
-                    <div id="navStudentPill" class="hidden md:flex desktop-nav-only items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-50 border border-blue-200 text-blue-700">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 online-dot"></span>
-                        <div class="text-xs">
-                            <span class="font-medium text-slate-500">Temps actif :</span>
-                            <span id="headerActiveTimer" class="font-bold text-blue-900 font-mono">00m 00s</span>
-                        </div>
+                    <!-- Hidden Student Active Study Timer Pill (No tracking for students) -->
+                    <div id="navStudentPill" class="hidden" style="display: none !important;">
+                        <span id="headerActiveTimer" class="hidden">00m 00s</span>
                     </div>
 
                     <!-- Messaging Button (Compact on Mobile, Full on Desktop) -->
@@ -171,13 +167,11 @@
                     <span class="text-base">📚</span> 
                     <span class="flex-1">Mes Cours & Exercices</span>
                 </button>
-                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
-                    <span class="font-medium text-slate-600 flex items-center gap-2">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 online-dot"></span>
-                        Temps d'étude actif :
-                    </span>
-                    <span id="mobileHeaderActiveTimer" class="font-bold text-blue-900 font-mono">00m 00s</span>
-                </div>
+                <button onclick="app.openMessagingModal(); app.closeMobileMenu();" 
+                        class="w-full px-3.5 py-2.5 text-left text-xs font-bold rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 flex items-center gap-2.5 transition-colors">
+                    <span class="text-base">💬</span> 
+                    <span class="flex-1">Messagerie & Échanges</span>
+                </button>
             </div>
 
             <!-- Mobile Actions: Password & Logout -->
@@ -323,12 +317,8 @@
                         </div>
                         <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Bonjour, <span id="studentGreetingName">Élève</span> 👋</h2>
                         <p class="text-blue-100 text-sm mt-1 max-w-xl">
-                            Consultez vos supports de cours, fiches de révision et exercices partagés par le Professeur Msalbi. Votre temps de révision active est enregistré automatiquement pour votre suivi pédagogique.
+                            Consultez et téléchargez vos supports de cours, fiches de révision et exercices. Échangez en direct avec votre professeur via la messagerie.
                         </p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center shrink-0">
-                        <div class="text-xs text-blue-200">Suivi actif par le professeur :</div>
-                        <div class="text-sm font-semibold text-white mt-1">Présence & Fichiers enregistrés ✅</div>
                     </div>
                 </div>
             </div>
