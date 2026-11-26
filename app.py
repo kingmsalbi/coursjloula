@@ -20,22 +20,39 @@ _last_blob_sync_time = 0
 
 import threading
 
+_sync_lock = threading.Lock()
+
 def _run_background_sync():
     # Sauvegarde sur Supabase Storage (prioritaire, remplace Vercel Blob)
-    try:
-        from supabase_storage import upload_file_to_supabase
-        result = upload_file_to_supabase(DB_PATH, 'database/partage_cours.db')
-        if result:
-            print("[CloudDB] DB sauvegardée sur Supabase Storage ✓")
-            return
-    except Exception as e:
-        print("[CloudDB] Erreur Supabase sync:", e)
-    # Fallback : Vercel Blob
-    try:
-        from blob_sync import sync_to_blob
-        sync_to_blob(DB_PATH)
-    except Exception as e:
-        print("[CloudDB] Erreur synchronisation cloud:", e)
+    with _sync_lock:
+        tmp_sync_path = DB_PATH + ".sync_tmp"
+        try:
+            # Copie atomique via SQLite backup API pour éviter toute corruption pendant l'écriture
+            src_conn = sqlite3.connect(DB_PATH)
+            dst_conn = sqlite3.connect(tmp_sync_path)
+            src_conn.backup(dst_conn)
+            dst_conn.close()
+            src_conn.close()
+
+            from supabase_storage import upload_file_to_supabase
+            result = upload_file_to_supabase(tmp_sync_path, 'database/partage_cours.db')
+            if result:
+                print("[CloudDB] DB sauvegardée sur Supabase Storage ✓")
+                return
+        except Exception as e:
+            print("[CloudDB] Erreur Supabase sync:", e)
+        finally:
+            try:
+                if os.path.exists(tmp_sync_path):
+                    os.remove(tmp_sync_path)
+            except Exception:
+                pass
+        # Fallback : Vercel Blob
+        try:
+            from blob_sync import sync_to_blob
+            sync_to_blob(DB_PATH)
+        except Exception as e:
+            print("[CloudDB] Erreur synchronisation cloud:", e)
 
 def notify_db_mutation():
     """Synchronise les changements de la base de données en arrière-plan sans bloquer la requête utilisateur."""
@@ -2208,6 +2225,7 @@ def change_student_class(student_id):
     cursor.execute("UPDATE users SET classe = ? WHERE id = ? AND role = 'student'", (new_class, student_id))
     conn.commit()
     conn.close()
+    notify_db_mutation()
     return jsonify({'success': True, 'message': f"L'élève a été affecté à la classe '{new_class}' avec succès."})
 
 @app.route('/api/teacher/export/word')
